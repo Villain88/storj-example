@@ -1,0 +1,4 @@
+[submodule "uplink-c"]
+	path = uplink-c
+	url = https://github.com/storj/uplink-c.git
+	branch = 3f58b9bbd81af4063c5dec12fdd954b87dbc1225
