@@ -2,6 +2,7 @@
 #include <fstream>
 #include <chrono>
 #include <thread>
+#include <cstdlib>
 
 #include "libuplinkc.h"
 
@@ -17,10 +18,17 @@ const char* access_string = "12Qy3wN5ED7M9ieApcdJYmQuxJDrzeEcVyPmeesnHCtYWJwsgzf
 
 int main(int argc, char* argv[]) {
 
-    int iterations = 10;
+    int iterations = 0;
     if (argc > 1) {
         iterations = std::atoi(argv[1]);
+    } else {
+        char* env_value = std::getenv("ITERATIONS");
+        iterations = std::atoi(env_value);
     }
+    if (iterations < 1) {
+        iterations = 1;
+    }
+
     UplinkAccessResult access_result = uplink_parse_access(access_string);
     require_noerror(access_result.error);
     UplinkProjectResult project_result = uplink_open_project(access_result.access);
@@ -37,7 +45,7 @@ int main(int argc, char* argv[]) {
         char buffer[buffer_size];
 
         // Open the binary file in binary mode
-        std::ifstream file("64K", std::ios::binary);
+        std::ifstream file("./64K", std::ios::binary);
 
         // Check if the file is opened successfully
         if (!file.is_open()) {
