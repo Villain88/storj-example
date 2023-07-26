@@ -16,3 +16,7 @@
 **Run:**
 
     ./test <iterations_count>
+
+**Run with SGX:**
+
+    docker run --rm -it --device=/dev/sgx_enclave  -v /dev/sgx:/dev/sgx -e ITERATIONS=<iterations_count> gsc-storj-test
